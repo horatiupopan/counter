@@ -1,26 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const Counter = () => {
     const [value, setValue] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
-    const currentValue = value;
-    
-    useEffect(() => {
-        let interval;
-        if (isRunning) {
-            interval = setInterval(() =>{
-                setValue(currentValue => currentValue + 0.1);
-            }, 100);
-        } else {
-            clearInterval(interval);
-        }
-        return () => {
-            clearInterval(interval);
-        }
-    }, [isRunning]);
+    let currentValue = value;
+    const intervalRef = useRef(null);
 
     const start = () => {
-        setIsRunning(true);
+        intervalRef.current = setInterval(() =>{
+            setValue(currentValue => currentValue + 0.1);
+        }, 100);
     }
 
     const restart = () => {
@@ -28,7 +16,7 @@ const Counter = () => {
     }
 
     const pause = () => {
-        setIsRunning(false);
+        clearInterval(intervalRef.current);
     }
 
     const stop = () => {
@@ -38,7 +26,7 @@ const Counter = () => {
 
     return (
         <>
-            <h1>{ value.toFixed(2) }</h1>
+            <h1>{ value.toFixed(1) }</h1>
             <button onClick={() => start()}>Start</button>
             <button onClick={() => pause()}>Pause</button>
             <button onClick={() => restart()}>Restart</button>
