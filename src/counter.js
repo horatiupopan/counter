@@ -1,38 +1,47 @@
 import { useEffect, useState, useRef } from "react";
+import React from 'react'
 
-const Counter = () => {
-    const [value, setValue] = useState(0);
-    let currentValue = value;
-    const intervalRef = useRef(null);
+class Counter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: 0,
+            interval: null
+        }
+    }
 
-    const start = () => {
-        intervalRef.current = setInterval(() =>{
-            setValue(currentValue => currentValue + 0.1);
+    start() {
+        const myinterval = setInterval(() => {
+            this.setState(currentState => ({value: currentState.value + 0.1}));
         }, 100);
+        this.setState({interval: myinterval});
     }
 
-    const restart = () => {
-        setValue(0);
+    restart() {
+        this.setState({ value: 0 });
     }
 
-    const pause = () => {
-        clearInterval(intervalRef.current);
+    pause() {
+        clearInterval(this.state.interval);
     }
 
-    const stop = () => {
-        pause();
-        restart();
+    stop() {
+        this.pause();
+        this.restart();
     }
 
-    return (
-        <>
-            <h1>{ value.toFixed(1) }</h1>
-            <button onClick={() => start()}>Start</button>
-            <button onClick={() => pause()}>Pause</button>
-            <button onClick={() => restart()}>Restart</button>
-            <button onClick={() => stop()}>Stop</button>
-        </>
-    );
-};
+    render() {
+        const {value, interval} = this.state;
+        return (
+            <>
+                <h1>{ Number(value).toFixed(1) }</h1>
+                <button onClick={() => this.start()}>Start</button>
+                <button onClick={() => this.pause()}>Pause</button>
+                <button onClick={() => this.restart()}>Restart</button>
+                <button onClick={() => this.stop()}>Stop</button>
+            </>
+        );
+    }
+}
 
 export default Counter;
