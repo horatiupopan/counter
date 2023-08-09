@@ -14,6 +14,7 @@ class Counter extends React.Component {
         clearInterval(this.interval);
         this.interval = setInterval(() => {
             this.setState(currentState => ({value: currentState.value + 0.1}));
+            console.log("bau");
         }, 100);
     }
 
@@ -28,6 +29,10 @@ class Counter extends React.Component {
     stop() {
         this.pause();
         this.restart();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     render() {

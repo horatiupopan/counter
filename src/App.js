@@ -2,11 +2,14 @@ import logo from './logo.svg';
 import './App.css';
 import Counter from './counter.js';
 import { ReactDOM } from 'react';
+import { useState } from 'react';
 
 function App() {
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <div className="App">
-      <Counter />
+      <button onClick={() => setIsVisible(!isVisible)}>Set Visible</button>
+      {isVisible && <Counter/>} 
     </div>
   );
 }
