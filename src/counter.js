@@ -4,17 +4,16 @@ import React from 'react'
 class Counter extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            value: 0,
-            interval: null
-        }
+    }
+
+    state = {
+        value: 0
     }
 
     start() {
-        const myinterval = setInterval(() => {
+        this.interval = setInterval(() => {
             this.setState(currentState => ({value: currentState.value + 0.1}));
         }, 100);
-        this.setState({interval: myinterval});
     }
 
     restart() {
@@ -22,7 +21,7 @@ class Counter extends React.Component {
     }
 
     pause() {
-        clearInterval(this.state.interval);
+        clearInterval(this.interval);
     }
 
     stop() {
