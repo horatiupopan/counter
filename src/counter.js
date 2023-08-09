@@ -7,8 +7,9 @@ const Counter = () => {
 
     const start = () => {
         clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(() =>{
+        intervalRef.current = setInterval(() => {
             setValue(currentValue => currentValue + 0.1);
+            console.log(currentValue + 0.1);
         }, 100);
     }
 
@@ -24,6 +25,10 @@ const Counter = () => {
         pause();
         restart();
     }
+
+    useEffect(() => {
+        return () => clearInterval(intervalRef.current);
+    }, []);
 
     return (
         <>
