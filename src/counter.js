@@ -6,6 +6,7 @@ const Counter = () => {
     const intervalRef = useRef(null);
 
     const start = () => {
+        clearInterval(intervalRef.current);
         intervalRef.current = setInterval(() =>{
             setValue(currentValue => currentValue + 0.1);
         }, 100);
