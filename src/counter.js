@@ -11,6 +11,7 @@ class Counter extends React.Component {
     }
 
     start() {
+        clearInterval(this.interval);
         this.interval = setInterval(() => {
             this.setState(currentState => ({value: currentState.value + 0.1}));
         }, 100);
